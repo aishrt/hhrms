@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Jobs</title>
+
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+/* Custom Styles */
+/* Add your custom styles here */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.header {
+    background-color: #263238;
+    color: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.navbar-toggler {
+    color: #ffffff !important;
+}
+
+.sidebar {
+    background-color: #263238;
+    color: #ffffff;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 60px;
+}
+.sidebar ul {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    list-style: none;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px 20px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #455a64;
+}
+
+.footer {
+    background-color: #263238;
+    color: #ffffff;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 250px);
+    z-index: 999;
+}
+
+.create-job-btn {
+    position: absolute;
+    top: 80px; /* Adjusted top position */
+    right: 20px;
+}
+
+/* Adjusted styling for Edit and Delete buttons */
+.btn-group-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 110px; /* Adjusted width */
+}
+
+.btn-group-action .btn {
+    flex-grow: 1;
+    margin: 0 5px; /* Added margin */
+    height: 58px; /* Adjusted height */
+}
+</style>
+</head>
+<body>
+
+<div class="main-wrapper">
+
+    <!-- Header Section -->
+    <div class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4><img src="assets/img/profile.jpg" class="mr-2" alt="profile" style="max-width: 40px; height: auto;"> Welcome Admin</h4>
+                        <label>Mon, 1 Apr 2024</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Section -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="Dashboard.html">Dashboard</a></li>
+            <li><a href="candidates.html">Candidates</a></li>
+            <li><a href="jobs.html">Jobs</a></li>
+            <li><a href="recruiters.html">Recruiters</a></li>
+            <li><a href="interview.html">Interviews</a></li>
+        </ul>
+        <ul class="logout">
+            <li><a href="login.html">Log out</a></li>
+        </ul>
+    </div>
+    
+    <!-- Main Content Area -->
+    <div class="content-wrapper">
+        <div id="content" class="page-wrapper">
+            <div class="container-fluid">
+                <h2>Jobs List</h2>
+                <table class="table table-bordered" id="jobTable">
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Domain</th>
+                            <th>Salary</th>
+                            <th>Job Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Job data will be appended here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <!-- <p>&copy; 2024 Your Company. All rights reserved.</p> -->
+        </div>
+    </footer>
+</div>
+
+<!-- Create Job Button -->
+<button class="btn btn-primary btn-sm create-job-btn" id="createJobBtn" data-toggle="modal" data-target="#jobModal">Add Job</button> <!-- Updated button with modal -->
+
+<!-- Job Modal -->
+<div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="jobModalLabel">Add Job</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="jobForm">
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title:</label>
+                        <input type="text" class="form-control" id="jobTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobDomain">Domain:</label>
+                        <select class="form-control" id="jobDomain" required>
+                            <option value="">Select Domain</option>
+                            <option value="House-keeping">House-keeping</option>
+                            <option value="Software Development">Software Development</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Day Clerical">Day Clerical</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Internet Marketing">Internet Marketing</option>
+                            <option value="Calling">Calling</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobSalary">Salary:</label>
+                        <input type="text" class="form-control" id="jobSalary" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobDescription">Job Description:</label>
+                        <textarea class="form-control" id="jobDescription" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Job Modal -->
+<div class="modal fade" id="editJobModal" tabindex="-1" role="dialog" aria-labelledby="editJobModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editJobModalLabel">Edit Job</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editJobForm">
+                    <div class="form-group">
+                        <label for="editJobTitle">Job Title:</label>
+                        <input type="text" class="form-control" id="editJobTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editJobDomain">Domain:</label>
+                        <select class="form-control" id="editJobDomain" required>
+                            <option value="">Select Domain</option>
+                            <option value="House-keeping">House-keeping</option>
+                            <option value="Software Development">Software Development</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Day Clerical">Day Clerical</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Internet Marketing">Internet Marketing</option>
+                            <option value="Calling">Calling</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editJobSalary">Salary:</label>
+                        <input type="text" class="form-control" id="editJobSalary" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editJobDescription">Job Description:</label>
+                        <textarea class="form-control" id="editJobDescription" required></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="updateJobBtn">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+
+    $('#jobForm').submit(function (event) {
+        event.preventDefault();
+        var title = $('#jobTitle').val();
+        var domain = $('#jobDomain').val();
+        var salary = $('#jobSalary').val();
+        var description = $('#jobDescription').val();
+
+        // Append new row to job table
+        var newRow = '<tr><td>' + title + '</td><td>' + domain + '</td><td>' + salary + '</td><td>' + description + '</td><td><div class="btn-group-action" role="group" aria-label="Basic example"><button type="button" class="btn btn-primary editJobBtn">Edit</button><button type="button" class="btn btn-danger deleteJobBtn">Delete</button></div></td></tr>';
+        $('#jobTable tbody').append(newRow);
+
+        // Clear the form fields
+        $('#jobForm')[0].reset();
+
+        // Hide the modal
+        $('#jobModal').modal('hide');
+    });
+
+    // Edit job button click event
+    var selectedRow; // Variable to store the selected row for editing
+    $(document).on('click', '.editJobBtn', function() {
+        selectedRow = $(this).closest('tr'); // Store the selected row
+        var title = selectedRow.find('td:eq(0)').text();
+        var domain = selectedRow.find('td:eq(1)').text();
+        var salary = selectedRow.find('td:eq(2)').text();
+        var description = selectedRow.find('td:eq(3)').text();
+
+        $('#editJobTitle').val(title);
+        $('#editJobDomain').val(domain);
+        $('#editJobSalary').val(salary);
+        $('#editJobDescription').val(description);
+
+        $('#editJobModal').modal('show');
+    });
+
+    // Update job button click event
+    $('#updateJobBtn').click(function() {
+        var title = $('#editJobTitle').val();
+        var domain = $('#editJobDomain').val();
+        var salary = $('#editJobSalary').val();
+        var description = $('#editJobDescription').val();
+
+        // Update the selected row with new data
+        selectedRow.find('td:eq(0)').text(title);
+        selectedRow.find('td:eq(1)').text(domain);
+        selectedRow.find('td:eq(2)').text(salary);
+        selectedRow.find('td:eq(3)').text(description);
+
+        $('#editJobModal').modal('hide');
+    });
+
+    // Delete job button click event
+    $(document).on('click', '.deleteJobBtn', function() {
+        $(this).closest('tr').remove();
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRMS - Interviews</title>
+
+<link rel="shortcut icon" href="assets/img/favicon.png">
+
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+/* Sidebar CSS */
+.sidebar {
+    background-color: #263238;
+    color: #ffffff;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 60px;
+}
+
+.sidebar ul {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    list-style: none;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px 20px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #455a64;
+}
+
+/* Header CSS */
+.header {
+    background-color: #263238;
+    color: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    z-index: 999;
+}
+
+.header h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.header label {
+    font-size: 14px;
+}
+
+/* Content Area */
+.page-wrapper {
+    margin-left: 250px;
+    padding-top: 60px;
+}
+
+.page-name {
+    margin-bottom: 20px;
+}
+
+/* Add Interview Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal-content select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal-content button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+.modal-content button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Table CSS */
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.dashboard-table th, .dashboard-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.dashboard-table th {
+    background-color: #f2f2f2;
+}
+
+.dashboard-table th:first-child, .dashboard-table td:first-child {
+    border-left: none;
+}
+
+.dashboard-table th:last-child, .dashboard-table td:last-child {
+    border-right: none;
+}
+
+.dashboard-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Button CSS */
+.action-btn {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.action-btn.edit-btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.action-btn.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.action-btn.reject-btn {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Modal CSS */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="main-wrapper">
+
+<!-- Header Section -->
+<div class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4><img src="assets/img/profile.jpg" class="mr-2" alt="profile" style="max-width: 40px; height: auto;"> Welcome Admin</h4>
+                    <label>Mon, 1 Apr 2024</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sidebar Section -->
+<div class="sidebar" id="sidebar">
+    <ul>
+        <li><a href="Dashboard.html">Dashboard</a></li>
+        <li><a href="candidates.html">Candidates</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="recruiters.html">Recruiters</a></li>
+        <li><a href="interview.html">Interviews</a></li>
+    </ul>
+    <ul class="logout">
+        <li><a href="login.html">Log out</a></li>
+    </ul>
+</div>
+
+<!-- Main Content Area -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-name mb-4">
+            <h4 class="m-0">Interviews</h4>
+            <button id="addInterviewBtn" class="btn btn-primary">Schedule Interview</button>
+        </div>
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Recruiter</th>
+                    <th>Domain</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Address/Link</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="interviewList"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Interview Modal -->
+<div id="addInterviewModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Schedule Interview</h2>
+        <form id="interviewForm">
+            <div class="form-group">
+                <label for="candidateName">Candidate Name:</label>
+                <input type="text" id="candidateName" name="candidateName" required>
+            </div>
+            <div class="form-group">
+                <label for="recruiterName">Recruiter:</label>
+                <select id="recruiterName" name="recruiterName" required>
+                    <option value="">Select Recruiter</option>
+                    <!-- Option will be populated dynamically -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="domain">Domain:</label>
+                <input type="text" id="domain" name="domain" required>
+            </div>
+            <div class="form-group">
+                <label for="interviewDate">Interview Date:</label>
+                <input type="date" id="interviewDate" name="interviewDate" required>
+            </div>
+            <div class="form-group">
+                <label for="interviewTime">Interview Time:</label>
+                <input type="time" id="interviewTime" name="interviewTime" required>
+            </div>
+            <div class="form-group">
+                <label for="addressLink">Address/Link:</label>
+                <input type="text" id="addressLink" name="addressLink" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Schedule Interview</button>
+        </form>
+    </div>
+</div>
+
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script>
+// Get the modal
+var modal = document.getElementById('addInterviewModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("addInterviewBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Function to display interviews
+function displayInterviews() {
+    // Fetch interviews data from local storage
+    const interviewsData = JSON.parse(localStorage.getItem('interviews')) || [];
+
+    // Get the container to display interviews
+    const interviewsContainer = document.getElementById('interviewList');
+
+    // Clear the container before adding new data
+    interviewsContainer.innerHTML = '';
+
+    // Loop through interviews data and create rows for each interview
+    interviewsData.forEach((interview, index) => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td>${interview.candidateName}</td>
+            <td>${interview.recruiterName}</td>
+            <td>${interview.domain}</td>
+            <td>${interview.interviewDate}</td>
+            <td>${interview.interviewTime}</td>
+            <td>${interview.addressLink}</td>
+            <td>
+                <button class="action-btn edit-btn" onclick="editInterview(${index})">Edit</button>
+                <button class="action-btn delete-btn" onclick="deleteInterview(${index})">Delete</button>
+                <button class="action-btn reject-btn" onclick="rejectInterview(${index})">Reject</button>
+            </td>
+        `;
+
+        interviewsContainer.appendChild(row);
+    });
+}
+
+// Function to add new interview
+document.getElementById('interviewForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const candidateName = document.getElementById('candidateName').value;
+    const recruiterName = document.getElementById('recruiterName').value;
+    const domain = document.getElementById('domain').value;
+    const interviewDate = document.getElementById('interviewDate').value;
+    const interviewTime = document.getElementById('interviewTime').value;
+    const addressLink = document.getElementById('addressLink').value;
+
+    // Create a new interview object
+    const newInterview = {
+        candidateName: candidateName,
+        recruiterName: recruiterName,
+        domain: domain,
+        interviewDate: interviewDate,
+        interviewTime: interviewTime,
+        addressLink: addressLink
+    };
+
+    // Fetch existing interviews data from local storage
+    const existingInterviews = JSON.parse(localStorage.getItem('interviews')) || [];
+
+    // Add the new interview to the existing data
+    existingInterviews.push(newInterview);
+
+    // Update the local storage with the new data
+    localStorage.setItem('interviews', JSON.stringify(existingInterviews));
+
+    // Display the updated list of interviews
+    displayInterviews();
+
+    // Close the modal
+    modal.style.display = "none";
+
+    // Reset the form fields
+    document.getElementById('candidateName').value = '';
+    document.getElementById('recruiterName').value = '';
+    document.getElementById('domain').value = '';
+    document.getElementById('interviewDate').value = '';
+    document.getElementById('interviewTime').value = '';
+    document.getElementById('addressLink').value = '';
+});
+
+// Call the displayInterviews function on page load
+displayInterviews();
+
+// Function to populate recruiters dropdown
+function populateRecruitersDropdown() {
+    // Fetch recruiters data from local storage
+    const recruitersData = JSON.parse(localStorage.getItem('recruiters')) || [];
+
+    // Get the select element for recruiters dropdown
+    const recruiterDropdown = document.getElementById('recruiterName');
+
+    // Clear existing options
+    recruiterDropdown.innerHTML = '<option value="">Select Recruiter</option>';
+
+    // Populate options dynamically
+    recruitersData.forEach(recruiter => {
+        const option = document.createElement('option');
+        option.value = recruiter.name;
+        option.textContent = recruiter.name;
+        recruiterDropdown.appendChild(option);
+    });
+}
+
+// Call the populateRecruitersDropdown function on page load
+populateRecruitersDropdown();
+
+// Function to edit interview
+function editInterview(index) {
+    // Fetch interviews data from local storage
+    const interviewsData = JSON.parse(localStorage.getItem('interviews')) || [];
+    const interview = interviewsData[index];
+
+    // Populate form fields with existing interview data
+    document.getElementById('candidateName').value = interview.candidateName;
+    document.getElementById('recruiterName').value = interview.recruiterName;
+    document.getElementById('domain').value = interview.domain;
+    document.getElementById('interviewDate').value = interview.interviewDate;
+    document.getElementById('interviewTime').value = interview.interviewTime;
+    document.getElementById('addressLink').value = interview.addressLink;
+
+    // Display modal
+    modal.style.display = "block";
+}
+
+// Function to delete interview
+function deleteInterview(index) {
+    // Fetch interviews data from local storage
+    let interviewsData = JSON.parse(localStorage.getItem('interviews')) || [];
+
+    // Remove the interview at the specified index
+    interviewsData.splice(index, 1);
+
+    // Update local storage
+    localStorage.setItem('interviews', JSON.stringify(interviewsData));
+
+    // Re-display interviews
+    displayInterviews();
+}
+
+// Function to reject interview
+function rejectInterview(index) {
+    // Fetch interviews data from local storage
+    let interviewsData = JSON.parse(localStorage.getItem('interviews')) || [];
+
+    // Update the status of the interview to rejected
+    interviewsData[index].status = 'Rejected';
+
+    // Update local storage
+    localStorage.setItem('interviews', JSON.stringify(interviewsData));
+
+    // Re-display interviews
+    displayInterviews();
+}
+</script>
+</body>
+</html>

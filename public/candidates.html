@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HRMS - Candidates</title>
+
+<link rel="shortcut icon" href="assets/img/favicon.png">
+
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+/* Sidebar CSS */
+
+.file-upload {
+    margin-bottom: 20px;
+}
+
+.file-upload input[type="file"] {
+    display: inline-block;
+}
+
+.file-upload button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.file-upload button:hover {
+    background-color: #0056b3;
+}
+
+.sidebar {
+    background-color: #263238;
+    color: #ffffff;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 60px;
+}
+
+.sidebar ul {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    list-style: none;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px 20px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #455a64;
+}
+
+/* Header CSS */
+.header {
+    background-color: #263238;
+    color: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    z-index: 999;
+}
+
+.header h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.header label {
+    font-size: 14px;
+}
+
+/* Content Area */
+.page-wrapper {
+    margin-left: 250px;
+    padding-top: 60px;
+}
+
+.page-name {
+    margin-bottom: 20px;
+}
+
+/* Add Candidate Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal-content button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+.modal-content button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Dashboard Table */
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.dashboard-table th, .dashboard-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.dashboard-table th {
+    background-color: #f2f2f2;
+}
+
+.dashboard-table th:first-child, .dashboard-table td:first-child {
+    border-left: none;
+}
+
+.dashboard-table th:last-child, .dashboard-table td:last-child {
+    border-right: none;
+}
+
+.dashboard-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Edit and Delete Buttons */
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.remark-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+.highlighted-row {
+    background-color: black;
+    color: white;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="main-wrapper">
+
+<!-- Header Section -->
+<div class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4><img src="assets/img/profile.jpg" class="mr-2" alt="profile" style="max-width: 40px; height: auto;"> Welcome Admin</h4>
+                    <label>Mon, 1 Apr 2024</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Sidebar Section -->
+<div class="sidebar" id="sidebar">
+    <ul>
+        <li><a href="Dashboard.html">Dashboard</a></li>
+        <li><a href="candidates.html">Candidates</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="recruiters.html">Recruiters</a></li>
+        <li><a href="interview.html">Interviews</a></li>
+    </ul>
+    <ul class="logout">
+        <li><a href="login.html">Log out</a></li>
+    </ul>
+</div>
+
+
+
+
+<!-- Main Content Area -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-name mb-4">
+            <h4 class="m-0">Candidates</h4>
+            <button id="addCandidateBtn" class="btn btn-primary">Add Candidate</button>
+            <div class="file-upload">
+                <input type="file" id="fileInput" accept=".csv">
+                <button onclick="uploadFile()">Upload CSV File</button>
+            </div>
+            
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" onkeyup="searchCandidates()" placeholder="Search candidates...">
+        </div>
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Company</th>
+                    <th>Domain</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="candidateList"></tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- Add Candidate Modal -->
+<div id="addCandidateModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add Candidate</h2>
+        <form id="candidateForm">
+            <div class="form-group">
+                <label for="candidateName">Name:</label>
+                <input type="text" id="candidateName" name="candidateName" required>
+            </div>
+            <div class="form-group">
+                <label for="candidateAddress">Address:</label>
+                <textarea id="candidateAddress" name="candidateAddress" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="candidateCompany">Company:</label>
+                <input type="text" id="candidateCompany" name="candidateCompany" required>
+            </div>
+            <div class="form-group">
+                <label for="candidateDomain">Domain:</label>
+                <input type="text" id="candidateDomain" name="candidateDomain" required>
+            </div>
+            <div class="form-group">
+                <label for="candidatePhone">Phone:</label>
+                <input type="text" id="candidatePhone" name="candidatePhone" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Candidate</button>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Candidate Modal -->
+<div id="editCandidateModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Candidate</h2>
+        <form id="editCandidateForm">
+            <input type="hidden" id="editCandidateIndex" name="editCandidateIndex">
+            <div class="form-group">
+                <label for="editCandidateName">Name:</label>
+                <input type="text" id="editCandidateName" name="editCandidateName" required>
+            </div>
+            <div class="form-group">
+                <label for="editCandidateAddress">Address:</label>
+                <textarea id="editCandidateAddress" name="editCandidateAddress" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="editCandidateCompany">Company:</label>
+                <input type="text" id="editCandidateCompany" name="editCandidateCompany" required>
+            </div>
+            <div class="form-group">
+                <label for="editCandidateDomain">Domain:</label>
+                <input type="text" id="editCandidateDomain" name="editCandidateDomain" required>
+            </div>
+            <div class="form-group">
+                <label for="editCandidatePhone">Phone:</label>
+                <input type="text" id="editCandidatePhone" name="editCandidatePhone" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+<!-- Delete Candidate Modal -->
+<div id="deleteCandidateModal" class="modal">
+    <div class="modal-content">
+        <h2>Delete Candidate</h2>
+        <p>Are you sure you want to delete this candidate?</p>
+        <button id="deleteCandidateConfirmBtn" class="btn btn-danger">Yes</button>
+        <button onclick="closeDeleteCandidateModal()" class="btn btn-secondary">No</button>
+    </div>
+</div>
+
+<!-- Remarks Modal -->
+<div id="remarksModal" class="modal">
+    <div class="modal-content">
+
+        <span class="close">&times;</span>
+        <button onclick="openViewRemarksModal()" class="btn btn-primary">View Remarks</button>
+
+        <h2>Add Remarks</h2>
+        <form id="remarksForm">
+            <div class="form-group">
+                <label for="remark">Remark:</label>
+                <select id="remark" name="remark">
+                    <option value="Selected">Selected</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Under Process">Under Process</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="detailedRemark">Detailed Remark:</label>
+                <textarea id="detailedRemark" name="detailedRemark" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="nextCallback">Next Call Back date and time:</label>
+                <input type="datetime-local" id="nextCallback" name="nextCallback">
+            </div>
+            <div class="form-group">
+                <label for="taskAssignedTo">Task Assigned to:</label>
+                <input type="text" id="taskAssignedTo" name="taskAssignedTo">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Remarks</button>
+
+        </form>
+        <ul id="existingRemarks"></ul> <!-- Container to display existing remarks -->
+    </div>
+    
+</div>
+
+<!-- View Remarks Modal -->
+<div id="viewRemarksModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeViewRemarksModal()">&times;</span>
+        <h2>All Remarks</h2>
+        <table id="allRemarksTable" class="remarks-table">
+            <thead>
+                <tr>
+                    <th>Remark</th>
+                    <th>Detailed Remark</th>
+                    <th>Next Callback</th>
+                    <th>Task Assigned To</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="allRemarksBody"></tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script>
+// Get the modal
+var addCandidateModal = document.getElementById('addCandidateModal');
+var editCandidateModal = document.getElementById('editCandidateModal');
+var deleteCandidateModal = document.getElementById('deleteCandidateModal');
+var remarksModal = document.getElementById('remarksModal');
+var viewRemarksModal = document.getElementById('viewRemarksModal');
+
+// Get the button that opens the modal
+var addCandidateBtn = document.getElementById("addCandidateBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close");
+
+// When the user clicks on the button, open the modal
+addCandidateBtn.onclick = function() {
+    addCandidateModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+for (var i = 0; i < span.length; i++) {
+    span[i].onclick = function() {
+        addCandidateModal.style.display = "none";
+        editCandidateModal.style.display = "none";
+        deleteCandidateModal.style.display = "none";
+        remarksModal.style.display = "none";
+        viewRemarksModal.style.display = "none";
+    }
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == addCandidateModal) {
+        addCandidateModal.style.display = "none";
+    } else if (event.target == editCandidateModal) {
+        editCandidateModal.style.display = "none";
+    } else if (event.target == deleteCandidateModal) {
+        deleteCandidateModal.style.display = "none";
+    } else if (event.target == remarksModal) {
+        remarksModal.style.display = "none";
+    } else if (event.target == viewRemarksModal) {
+        viewRemarksModal.style.display = "none";
+    }
+}
+
+// Function to display candidates
+function displayCandidates() {
+    // Fetch candidates data from local storage
+    const candidatesData = JSON.parse(localStorage.getItem('candidates')) || [];
+
+    // Get the container to display candidates
+    const candidatesContainer = document.getElementById('candidateList');
+
+    // Clear the container before adding new data
+    candidatesContainer.innerHTML = '';
+
+    // Loop through candidates data and create rows for each candidate
+    candidatesData.forEach((candidate, index) => {
+        const row = document.createElement('tr');
+        
+
+        row.innerHTML = `
+            <td>${candidate.name}</td>
+            <td>${candidate.address}</td>
+            <td>${candidate.company}</td>
+            <td>${candidate.domain}</td>
+            <td>${candidate.phone}</td>
+            <td>
+                <button class="edit-btn" onclick="openEditCandidateModal(${index})">Edit</button>
+                <button class="delete-btn" onclick="openDeleteCandidateModal(${index})">Delete</button>
+                <button class="remark-btn" onclick="openRemarksModal(${index})">Add Remark</button>
+            </td>
+        `;
+          // Check if the candidate has remarks
+          if (candidate.remarks && candidate.remarks.length > 0) {
+            row.classList.add('highlighted-row'); // Add the highlighted-row class
+        }
+
+        candidatesContainer.appendChild(row);
+
+    });
+}
+
+// Function to add new candidate
+document.getElementById('candidateForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const candidateName = document.getElementById('candidateName').value;
+    const candidateAddress = document.getElementById('candidateAddress').value;
+    const candidateCompany = document.getElementById('candidateCompany').value;
+    const candidateDomain = document.getElementById('candidateDomain').value;
+    const candidatePhone = document.getElementById('candidatePhone').value;
+
+    // Create a new candidate object
+    const newCandidate = {
+        name: candidateName,
+        address: candidateAddress,
+        company: candidateCompany,
+        domain: candidateDomain,
+        phone: candidatePhone
+    };
+
+    // Fetch existing candidates data from local storage
+    const existingCandidates = JSON.parse(localStorage.getItem('candidates')) || [];
+
+    // Add the new candidate to the existing data
+    existingCandidates.push(newCandidate);
+
+    // Update the local storage with the new data
+    localStorage.setItem('candidates', JSON.stringify(existingCandidates));
+
+    // Display the updated list of candidates
+    displayCandidates();
+
+    // Close the modal
+    addCandidateModal.style.display = "none";
+
+    // Reset the form fields
+    document.getElementById('candidateForm').reset();
+});
+
+// Function to open edit candidate modal
+function openEditCandidateModal(index) {
+    // Fetch candidates data from local storage
+    const candidatesData = JSON.parse(localStorage.getItem('candidates')) || [];
+
+    // Get the candidate object to be edited
+    const candidateToEdit = candidatesData[index];
+
+    // Populate the form fields with the existing data
+    document.getElementById('editCandidateName').value = candidateToEdit.name;
+    document.getElementById('editCandidateAddress').value = candidateToEdit.address;
+    document.getElementById('editCandidateCompany').value = candidateToEdit.company;
+    document.getElementById('editCandidateDomain').value = candidateToEdit.domain;
+    document.getElementById('editCandidatePhone').value = candidateToEdit.phone;
+    document.getElementById('editCandidateIndex').value = index;
+
+    // Show the edit candidate modal
+    editCandidateModal.style.display = "block";
+}
+
+// Function to save changes to edited candidate
+document.getElementById('editCandidateForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const index = document.getElementById('editCandidateIndex').value;
+    const newName = document.getElementById('editCandidateName').value;
+    const newAddress = document.getElementById('editCandidateAddress').value;
+    const newCompany = document.getElementById('editCandidateCompany').value;
+    const newDomain = document.getElementById('editCandidateDomain').value;
+    const newPhone = document.getElementById('editCandidatePhone').value;
+
+    // Fetch candidates data from local storage
+    const candidatesData = JSON.parse(localStorage.getItem('candidates')) || [];
+
+    // Update the edited candidate object
+    candidatesData[index] = {
+        name: newName,
+        address: newAddress,
+        company: newCompany,
+        domain: newDomain,
+        phone: newPhone
+    };
+
+    // Update the local storage with the modified data
+    localStorage.setItem('candidates', JSON.stringify(candidatesData));
+
+    // Display the updated list of candidates
+    displayCandidates();
+
+    // Close the modal
+    editCandidateModal.style.display = "none";
+});
+
+// Function to open delete candidate modal
+function openDeleteCandidateModal(index) {
+    document.getElementById('deleteCandidateModal').style.display = "block";
+
+    // Confirm delete action
+    document.getElementById('deleteCandidateConfirmBtn').addEventListener('click', function() {
+        deleteCandidate(index);
+    });
+}
+
+// Function to close delete candidate modal
+function closeDeleteCandidateModal() {
+    document.getElementById('deleteCandidateModal').style.display = "none";
+}
+
+// Function to delete a candidate
+function deleteCandidate(index) {
+    // Fetch candidates data from local storage
+    const candidatesData = JSON.parse(localStorage.getItem('candidates')) || [];
+
+    // Remove the candidate from the array
+    candidatesData.splice(index, 1);
+
+    // Update the local storage with the modified data
+    localStorage.setItem('candidates', JSON.stringify(candidatesData));
+
+    // Display the updated list of candidates
+    displayCandidates();
+
+    // Close the modal
+    closeDeleteCandidateModal();
+}
+// Function to open remarks modal
+function openRemarksModal(index) {
+    // Clear the modal form fields
+    document.getElementById('remarksForm').reset();
+
+    // Fetch candidates data from local storage
+    const candidatesData = JSON.parse(localStorage.getItem('candidates')) || [];
+
+    // Get the remarks data for the selected candidate
+    const remarksData = candidatesData[index].remarks || {};
+
+    // Populate the existing remarks list
+    const existingRemarksList = document.getElementById('existingRemarks');
+    existingRemarksList.innerHTML = '';
+
+    for (const remark in remarksData) {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<strong>${remark}:</strong> ${remarksData[remark]}`;
+        existingRemarksList.appendChild(listItem);
+    }
+
+    // Show the remarks modal
+    remarksModal.style.display = "block";
+
+    // Save the index of the candidate for which remarks are being added
+    document.getElementById('remarksModal').dataset.candidateIndex = index;
+}
+
+// Function to add remarks
+document.getElementById('remarksForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get the index of the candidate for which remarks are being added
+    const index = parseInt(document.getElementById('remarksModal').dataset.candidateIndex);
+
+    // Get the values from the form fields
+    const remarkType = document.getElementById('remark').value;
+    const detailedRemark = document.getElementById('detailedRemark').value;
+    const nextCallback = document.getElementById('nextCallback').value;
+    const taskAssignedTo = document.getElementById('taskAssignedTo').value;
+
+    // Construct the remarks object
+    const remarks = {
+        Remark: remarkType,
+        "Detailed Remark": detailedRemark,
+        "Next Callback": nextCallback,
+        "Task Assigned To": taskAssignedTo,
+        "Date": new Date().toISOString()
+    };
+
+    // Fetch candidates data from local storage
+    const candidatesData = JSON.parse(localStorage.getItem('candidates')) || [];
+
+    // Get the candidate object
+    const candidate = candidatesData[index];
+
+    // If remarks array does not exist, create it
+    if (!candidate.remarks) {
+        candidate.remarks = [];
+    }
+
+    // Add the new remarks to the candidate object
+    candidate.remarks.push(remarks);
+
+    // Update the local storage with the modified data
+    localStorage.setItem('candidates', JSON.stringify(candidatesData));
+
+    // Close the modal
+    remarksModal.style.display = "none";
+
+    // Clear the form fields
+    document.getElementById('remarksForm').reset();
+
+    // Open the view remarks modal to display all remarks
+    openViewRemarksModal();
+});
+
+// Function to open view remarks modal
+function openViewRemarksModal() {
+    // Fetch candidates data from local storage
+    const candidatesData = JSON.parse(localStorage.getItem('candidates')) || [];
+
+    // Get the index of the candidate for which remarks are being viewed
+    const index = parseInt(document.getElementById('remarksModal').dataset.candidateIndex);
+
+    // Get the candidate object
+    const candidate = candidatesData[index];
+
+    // Populate the remarks table
+    const allRemarksBody = document.getElementById('allRemarksBody');
+    allRemarksBody.innerHTML = '';
+
+    if (candidate.remarks && candidate.remarks.length > 0) {
+        candidate.remarks.forEach(remark => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${remark.Remark}</td>
+                <td>${remark["Detailed Remark"]}</td>
+                <td>${remark["Next Callback"]}</td>
+                <td>${remark["Task Assigned To"]}</td>
+                <td>${new Date(remark.Date).toLocaleString()}</td>
+            `;
+            allRemarksBody.appendChild(row);
+        });
+    } else {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td colspan="5" style="text-align: center;">No remarks available</td>`;
+        allRemarksBody.appendChild(row);
+    }
+
+    // Show the view remarks modal
+    viewRemarksModal.style.display = "block";
+}
+
+// Function to close view remarks modal
+function closeViewRemarksModal() {
+    viewRemarksModal.style.display = "none";
+}
+
+// Display candidates when the page loads
+displayCandidates();
+
+function uploadFile() {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Please select a file.");
+        return;
+    }
+
+    if (!file.name.endsWith('.csv')) {
+        alert("Please select a CSV file.");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const csvData = event.target.result;
+        processData(csvData);
+    };
+
+    reader.readAsText(file);
+}
+
+function processData(csvData) {
+    const rows = csvData.split('\n');
+    const newCandidates = [];
+
+    for (let i = 1; i < rows.length; i++) {
+        const columns = rows[i].split(',');
+        if (columns.length === 5) { // Adjust this if your CSV format is different
+            const candidate = {
+                name: columns[0].trim(),
+                address: columns[1].trim(),
+                company: columns[2].trim(),
+                domain: columns[3].trim(),
+                phone: columns[4].trim()
+            };
+            newCandidates.push(candidate);
+        }
+    }
+
+    let candidates = JSON.parse(localStorage.getItem('candidates')) || [];
+    candidates = candidates.concat(newCandidates); // Append new candidates to existing ones
+
+    localStorage.setItem('candidates', JSON.stringify(candidates));
+    displayCandidates(); // Assuming you have a function to display candidates
+}
+
+// Function to display candidates based on search input
+function displayCandidates(filteredCandidates = []) {
+    // Fetch candidates data from local storage
+    const candidatesData = JSON.parse(localStorage.getItem('candidates')) || [];
+
+    // Get the container to display candidates
+    const candidatesContainer = document.getElementById('candidateList');
+
+    // Clear the container before adding new data
+    candidatesContainer.innerHTML = '';
+
+    // Determine which candidates to display
+    const candidatesToDisplay = filteredCandidates.length > 0 ? filteredCandidates : candidatesData;
+
+    // Loop through candidates data and create rows for each candidate
+    candidatesToDisplay.forEach((candidate, index) => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td>${candidate.name}</td>
+            <td>${candidate.address}</td>
+            <td>${candidate.company}</td>
+            <td>${candidate.domain}</td>
+            <td>${candidate.phone}</td>
+            <td>
+                <button class="edit-btn" onclick="openEditCandidateModal(${index})">Edit</button>
+                <button class="delete-btn" onclick="openDeleteCandidateModal(${index})">Delete</button>
+                <button class="remark-btn" onclick="openRemarksModal(${index})">Add Remark</button>
+            </td>
+        `;
+
+        candidatesContainer.appendChild(row);
+    });
+}
+
+// Function to search candidates
+function searchCandidates() {
+    const searchText = document.getElementById('searchInput').value.toLowerCase();
+
+    // Fetch candidates data from local storage
+    const candidates = JSON.parse(localStorage.getItem('candidates')) || [];
+
+    // Filter candidates based on search text
+    const filteredCandidates = candidates.filter(candidate => {
+        // Check if any field (name, address, company, domain, phone) contains the search text
+        return Object.values(candidate).some(value =>
+            value.toString().toLowerCase().includes(searchText)
+        );
+    });
+
+    // Display the filtered candidates
+    displayCandidates(filteredCandidates);
+}
+
+// Display candidates when the page loads
+displayCandidates();
+
+
+</script>
+
+</body>
+</html>

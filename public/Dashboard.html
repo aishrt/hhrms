@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>HRMS - Dashboard</title>
+
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    /* Sidebar CSS */
+    .sidebar {
+        background-color: #263238;
+        color: #ffffff;
+        width: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        overflow-y: auto;
+        padding-top: 60px;
+    }
+
+    .sidebar ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar ul li {
+        list-style: none;
+    }
+
+    .sidebar ul li a {
+        display: block;
+        padding: 10px 20px;
+        color: #ffffff;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+        background-color: #455a64;
+    }
+
+    /* Header CSS */
+    .header {
+        background-color: #263238;
+        color: #ffffff;
+        padding: 15px 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 250px;
+        width: calc(100% - 250px);
+        z-index: 999;
+    }
+
+    .header h4 {
+        margin: 0;
+        font-size: 18px;
+    }
+
+    .header label {
+        font-size: 14px;
+    }
+
+    /* Content Area */
+    .page-wrapper {
+        margin-left: 250px;
+        padding-top: 60px;
+    }
+
+    .page-name {
+        margin-bottom: 20px;
+    }
+
+    /* Dashboard Cards */
+    .dashboard-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .card-title {
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .card-content {
+        font-size: 16px;
+        color: #666666;
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+
+    <!-- Header Section -->
+    <div class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4>Welcome Admin</h4>
+                        <label>Mon, 1 Apr 2024</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Section -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="Dashboard.html">Dashboard</a></li>
+            <li><a href="candidates.html">Candidates</a></li>
+            <li><a href="jobs.html">Jobs</a></li>
+            <li><a href="recruiters.html">Recruiters</a></li>
+            <li><a href="interview.html">Interviews</a></li>
+        </ul>
+        <ul class="logout">
+            <li><a href="login.html">Log out</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h4 class="m-0">Dashboard</h4>
+            </div>
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h5 class="card-title">Total Candidates</h5>
+                    <p class="card-content">150</p>
+                </div>
+                <div class="card">
+                    <h5 class="card-title">Total Jobs</h5>
+                    <p class="card-content">50</p>
+                </div>
+                <div class="card">
+                    <h5 class="card-title">Total Recruiters</h5>
+                    <p class="card-content">10</p>
+                </div>
+                <div class="card">
+                    <h5 class="card-title">Total Interviews</h5>
+                    <p class="card-content">30</p>
+                </div>
+                <div class="card">
+                    <h5 class="card-title">Candidates Pass/Fail Status</h5>
+                    <p class="card-content">Pass: 100<br>Fail: 50</p>
+                </div>
+                <div class="card">
+                    <h5 class="card-title">Remarks</h5>
+                    <p class="card-content">Candidates with good communication skills. Need improvement in technical knowledge.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+</body>
+</html>
