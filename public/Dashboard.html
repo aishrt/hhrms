@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
@@ -8,41 +9,53 @@
     <link rel="shortcut icon" href="assets/img/favicon.png">
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>HRMS - Recruitment</title>
-    
-    <link rel="shortcut icon" href="assets/img/favicon.png">
-    
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/admindash.css">
-    
-    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>HRMS - Recruitment</title>
+
+        <link rel="shortcut icon" href="assets/img/favicon.png">
+
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/admindash.css">
+
+
     </head>
-    <body>
-    
-    
+
+<body>
+
+
     <div class="main-wrapper">
-    
+
         <!-- Header Section -->
         <div class="header">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h4><img src="assets/img/profile.jpg" class="mr-2" alt="profile" style="max-width: 40px; height: auto;"> Welcome Admin</h4>
+                            <div class="profile">
+                                <img src="assets/img/profile.jpg" class="mr-2 profile-icon" alt="profile" style="max-width: 40px; height: auto;">
+                                <div class="dropdown">
+                                    <ul>
+                                        <li><a href="profile.html">My Profile</a></li>
+                                        <li><a href="#">Edit Profile</a></li>
+                                        <li><a href="login.html">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <h4>Welcome Admin</h4>
                             <label>Mon, 1 Apr 2024</label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Sidebar Section -->
         <div class="sidebar" id="sidebar">
             <ul>
@@ -56,19 +69,19 @@
                 <li><a href="#">Log out</a></li>
             </ul>
         </div>
-        
+
         <!-- Main Content Area -->
         <div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="page-name mb-4">
                     <h4 class="m-0">Recruitment Dashboard</h4>
                 </div>
-    
+
                 <!-- Dashboard Cards for Recruiters -->
                 <div id="dashboard" class="dashboard-grid">
                     <!-- Recruiters will be dynamically populated here -->
                 </div>
-    
+
                 <!-- Assign Candidates Section -->
                 <div class="assign-form">
                     <h5 class="mb-3">Assign Candidates</h5>
@@ -90,362 +103,196 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-block" onclick="assignCandidateToRecruiter()">Assign Candidate</button> <!-- Updated button style -->
+                    <button type="button" class="btn btn-primary btn-block"
+                        onclick="assignCandidateToRecruiter()">Assign Candidate</button> <!-- Updated button style -->
                 </div>
             </div>
         </div>
-        
+
         <!-- JavaScript Libraries -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
-        
+
         <!-- Main JavaScript File -->
         <script>
-        // Function to fetch recruiters from local storage
-        function getRecruiters() {
-            // Sample data - Replace with actual data fetched from local storage
-            return JSON.parse(localStorage.getItem('recruiters')) || [];
-        }
-        
-        // Function to fetch candidates from local storage
-        function getCandidates() {
-            // Sample data - Replace with actual data fetched from local storage
-            return JSON.parse(localStorage.getItem('candidates')) || [];
-        }
-        
-        // Function to populate dropdowns with recruiters and candidates
-        function populateDropdowns() {
-            const recruiters = getRecruiters();
-            const candidates = getCandidates();
-        
-            const recruiterSelect = document.getElementById('recruiterSelect');
-            recruiters.forEach(recruiter => {
-                const option = document.createElement('option');
-                option.value = recruiter.name;
-                option.textContent = recruiter.name;
-                recruiterSelect.appendChild(option);
-            });
-        
-            const candidateSelect = document.getElementById('candidateSelect');
-            // Clear previous options
-            candidateSelect.innerHTML = '';
-            candidates.forEach(candidate => {
-                if (!isCandidateAssigned(candidate.name)) {
-                    const option = document.createElement('option');
-                    option.value = candidate.name;
-                    option.textContent = candidate.name;
-                    candidateSelect.appendChild(option);
-                }
-            });
-        }
-        
-        // Function to check if a candidate is already assigned to a recruiter
-        function isCandidateAssigned(candidateName) {
-            const recruiters = getRecruiters();
-            for (const recruiter of recruiters) {
-                if (recruiter.assignedCandidates && recruiter.assignedCandidates.includes(candidateName)) {
-                    return true;
-                }
+            // Function to fetch recruiters from local storage
+            function getRecruiters() {
+                // Sample data - Replace with actual data fetched from local storage
+                return JSON.parse(localStorage.getItem('recruiters')) || [];
             }
-            return false;
-        }
-    
-        // Function to create dashboard cards for recruiters
-        function createDashboardCards() {
-            const dashboard = document.getElementById('dashboard');
-            dashboard.innerHTML = ''; // Clear existing content
-            const recruitersData = getRecruiters();
-            recruitersData.forEach(recruiter => {
-                const card = document.createElement('div');
-                card.className = 'dashboard-card';
-                const html = `
+
+            // Function to fetch candidates from local storage
+            function getCandidates() {
+                // Sample data - Replace with actual data fetched from local storage
+                return JSON.parse(localStorage.getItem('candidates')) || [];
+            }
+
+            // Function to populate dropdowns with recruiters and candidates
+            function populateDropdowns() {
+                const recruiters = getRecruiters();
+                const candidates = getCandidates();
+
+                const recruiterSelect = document.getElementById('recruiterSelect');
+                recruiters.forEach(recruiter => {
+                    const option = document.createElement('option');
+                    option.value = recruiter.name;
+                    option.textContent = recruiter.name;
+                    recruiterSelect.appendChild(option);
+                });
+
+                const candidateSelect = document.getElementById('candidateSelect');
+                // Clear previous options
+                candidateSelect.innerHTML = '';
+                candidates.forEach(candidate => {
+                    if (!isCandidateAssigned(candidate.name)) {
+                        const option = document.createElement('option');
+                        option.value = candidate.name;
+                        option.textContent = candidate.name;
+                        candidateSelect.appendChild(option);
+                    }
+                });
+            }
+
+            // Function to check if a candidate is already assigned to a recruiter
+            function isCandidateAssigned(candidateName) {
+                const recruiters = getRecruiters();
+                for (const recruiter of recruiters) {
+                    if (recruiter.assignedCandidates && recruiter.assignedCandidates.includes(candidateName)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // Function to create dashboard cards for recruiters
+            function createDashboardCards() {
+                const dashboard = document.getElementById('dashboard');
+                dashboard.innerHTML = ''; // Clear existing content
+                const recruitersData = getRecruiters();
+                recruitersData.forEach(recruiter => {
+                    const card = document.createElement('div');
+                    card.className = 'dashboard-card';
+                    const html = `
                     <h5>${recruiter.name}</h5>
                     <ul class="assigned-candidates">
                         ${recruiter.assignedCandidates && recruiter.assignedCandidates.length > 0 ? recruiter.assignedCandidates.map(candidate => `<li>${candidate}</li>`).join('') : '<li>No candidates assigned</li>'}
                     </ul>
                 `;
-                card.innerHTML = html;
-                dashboard.appendChild(card);
-            });
-        }
-        // Function to remove a recruiter
-    function removeRecruiter(recruiterName) {
-        if (confirm(`Are you sure you want to unassign all candidates from ${recruiterName}?`)) {
-            // Fetch recruiters from localStorage
-            const recruitersData = getRecruiters();
-            
-            // Find the recruiter object
-            const recruiterObjIndex = recruitersData.findIndex(r => r.name === recruiterName);
-            
-            // If recruiter not found, show alert and return
-            if (recruiterObjIndex === -1) {
-                alert('Recruiter not found. Please try again.');
-                return;
+                    card.innerHTML = html;
+                    dashboard.appendChild(card);
+                });
             }
-            
-            // Remove assigned candidates from the recruiter
-            recruitersData[recruiterObjIndex].assignedCandidates = [];
-            
-            // Update localStorage with the modified data
-            localStorage.setItem('recruiters', JSON.stringify(recruitersData));
-            
-            // Update dashboard
+            // Function to remove a recruiter
+            function removeRecruiter(recruiterName) {
+                if (confirm(`Are you sure you want to unassign all candidates from ${recruiterName}?`)) {
+                    // Fetch recruiters from localStorage
+                    const recruitersData = getRecruiters();
+
+                    // Find the recruiter object
+                    const recruiterObjIndex = recruitersData.findIndex(r => r.name === recruiterName);
+
+                    // If recruiter not found, show alert and return
+                    if (recruiterObjIndex === -1) {
+                        alert('Recruiter not found. Please try again.');
+                        return;
+                    }
+
+                    // Remove assigned candidates from the recruiter
+                    recruitersData[recruiterObjIndex].assignedCandidates = [];
+
+                    // Update localStorage with the modified data
+                    localStorage.setItem('recruiters', JSON.stringify(recruitersData));
+
+                    // Update dashboard
+                    createDashboardCards();
+
+                    // Show notification
+                    alert(`All candidates have been unassigned from ${recruiterName}.`);
+                }
+            }
+
+            // Call function to populate dropdowns and create dashboard cards when the page loads
+            populateDropdowns();
             createDashboardCards();
-            
-            // Show notification
-            alert(`All candidates have been unassigned from ${recruiterName}.`);
-        }
-    }
-        
-        // Call function to populate dropdowns and create dashboard cards when the page loads
-        populateDropdowns();
-        createDashboardCards();
-        
-        // Function to assign candidates to a recruiter
-    function assignCandidateToRecruiter() {
-        const selectedCandidates = Array.from(document.getElementById('candidateSelect').selectedOptions).map(option => option.value);
-        const recruiter = document.getElementById('recruiterSelect').value;
-        
-        // Perform validation
-        if (selectedCandidates.length === 0 || recruiter === '') {
-            alert('Please select both candidate(s) and recruiter.');
-            return;
-        }
-        
-        // Fetch recruiters from localStorage
-        const recruitersData = getRecruiters();
-        
-        // Find the recruiter object
-        const recruiterObjIndex = recruitersData.findIndex(r => r.name === recruiter);
-        
-        // If recruiter not found, show alert and return
-        if (recruiterObjIndex === -1) {
-            alert('Recruiter not found. Please select a valid recruiter.');
-            return;
-        }
-        
-        const recruiterObj = recruitersData[recruiterObjIndex];
-        
-        // Initialize assignedCandidates array if not exists
-        if (!recruiterObj.assignedCandidates) {
-            recruiterObj.assignedCandidates = [];
-        }
-        
-        // Check if any of the selected candidates is already assigned to this recruiter
-        const alreadyAssignedCandidates = selectedCandidates.filter(candidate => recruiterObj.assignedCandidates.includes(candidate));
-        if (alreadyAssignedCandidates.length > 0) {
-            alert(`The following candidates are already assigned to ${recruiter}: ${alreadyAssignedCandidates.join(', ')}. Please deselect them and try again.`);
-            return;
-        }
-        
-        // Assign selected candidates to the recruiter
-        recruiterObj.assignedCandidates.push(...selectedCandidates);
-        
-        // Update the recruitersData array
-        recruitersData[recruiterObjIndex] = recruiterObj;
-        
-        // Update localStorage with the modified data
-        localStorage.setItem('recruiters', JSON.stringify(recruitersData));
-        
-        // Update dropdowns and dashboard
-        populateDropdowns();
-        createDashboardCards();
-        
-        // Show notification
-        alert(`${selectedCandidates.length} candidate(s) have been assigned to ${recruiter}.`);
-    }
-    
+
+            // Function to assign candidates to a recruiter
+            function assignCandidateToRecruiter() {
+                const selectedCandidates = Array.from(document.getElementById('candidateSelect').selectedOptions).map(option => option.value);
+                const recruiter = document.getElementById('recruiterSelect').value;
+
+                // Perform validation
+                if (selectedCandidates.length === 0 || recruiter === '') {
+                    alert('Please select both candidate(s) and recruiter.');
+                    return;
+                }
+
+                // Fetch recruiters from localStorage
+                const recruitersData = getRecruiters();
+
+                // Find the recruiter object
+                const recruiterObjIndex = recruitersData.findIndex(r => r.name === recruiter);
+
+                // If recruiter not found, show alert and return
+                if (recruiterObjIndex === -1) {
+                    alert('Recruiter not found. Please select a valid recruiter.');
+                    return;
+                }
+
+                const recruiterObj = recruitersData[recruiterObjIndex];
+
+                // Initialize assignedCandidates array if not exists
+                if (!recruiterObj.assignedCandidates) {
+                    recruiterObj.assignedCandidates = [];
+                }
+
+                // Check if any of the selected candidates is already assigned to this recruiter
+                const alreadyAssignedCandidates = selectedCandidates.filter(candidate => recruiterObj.assignedCandidates.includes(candidate));
+                if (alreadyAssignedCandidates.length > 0) {
+                    alert(`The following candidates are already assigned to ${recruiter}: ${alreadyAssignedCandidates.join(', ')}. Please deselect them and try again.`);
+                    return;
+                }
+
+                // Assign selected candidates to the recruiter
+                recruiterObj.assignedCandidates.push(...selectedCandidates);
+
+                // Update the recruitersData array
+                recruitersData[recruiterObjIndex] = recruiterObj;
+
+                // Update localStorage with the modified data
+                localStorage.setItem('recruiters', JSON.stringify(recruitersData));
+
+                // Update dropdowns and dashboard
+                populateDropdowns();
+                createDashboardCards();
+
+                // Show notification
+                alert(`${selectedCandidates.length} candidate(s) have been assigned to ${recruiter}.`);
+
+                // JavaScript code to toggle dropdown menu
+                document.addEventListener("DOMContentLoaded", function () {
+                    const profileIcon = document.querySelector('.profile-icon');
+                    const dropdownMenu = document.querySelector('.dropdown');
+
+                    profileIcon.addEventListener('click', function () {
+                        dropdownMenu.classList.toggle('show');
+                    });
+
+                    // Close the dropdown menu if the user clicks outside of it
+                    window.addEventListener('click', function (event) {
+                        if (!event.target.matches('.profile-icon')) {
+                            const dropdowns = document.querySelectorAll('.dropdown');
+                            dropdowns.forEach(function (dropdown) {
+                                if (dropdown.classList.contains('show')) {
+                                    dropdown.classList.remove('show');
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+
         </script>
-    
-    </body>
-    </html>
-    
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
 
-    <!--[if lt IE 9]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
-    <style>
-    /* Sidebar CSS */
-    .sidebar {
-        background-color: #263238;
-        color: #ffffff;
-        width: 250px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        overflow-y: auto;
-        padding-top: 60px;
-    }
-
-    .sidebar ul {
-        padding: 0;
-        margin: 0;
-    }
-
-    .sidebar ul li {
-        list-style: none;
-    }
-
-    .sidebar ul li a {
-        display: block;
-        padding: 10px 20px;
-        color: #ffffff;
-        text-decoration: none;
-        transition: 0.3s;
-    }
-
-    .sidebar ul li a:hover {
-        background-color: #455a64;
-    }
-
-    /* Header CSS */
-    .header {
-        background-color: #263238;
-        color: #ffffff;
-        padding: 15px 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        top: 0;
-        left: 250px;
-        width: calc(100% - 250px);
-        z-index: 999;
-    }
-
-    .header h4 {
-        margin: 0;
-        font-size: 18px;
-    }
-
-    .header label {
-        font-size: 14px;
-    }
-
-    /* Content Area */
-    .page-wrapper {
-        margin-left: 250px;
-        padding-top: 60px;
-    }
-
-    .page-name {
-        margin-bottom: 20px;
-    }
-
-    /* Dashboard Cards */
-    .dashboard-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-    }
-
-    .card {
-        background-color: #ffffff;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-    }
-
-    .card-title {
-        margin-bottom: 15px;
-        font-weight: bold;
-        font-size: 18px;
-    }
-
-    .card-content {
-        font-size: 16px;
-        color: #666666;
-    }
-
-    .btn-primary {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #ffffff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
-    </style>
-</head>
-<body>
-
-<div class="main-wrapper">
-
-    <!-- Header Section -->
-    <div class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h4>Welcome Admin</h4>
-                        <label>Mon, 1 Apr 2024</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sidebar Section -->
-    <div class="sidebar" id="sidebar">
-        <ul>
-            <li><a href="Dashboard.html">Dashboard</a></li>
-            <li><a href="candidates.html">Candidates</a></li>
-            <li><a href="jobs.html">Jobs</a></li>
-            <li><a href="recruiters.html">Recruiters</a></li>
-            <li><a href="interview.html">Interviews</a></li>
-        </ul>
-        <ul class="logout">
-            <li><a href="login.html">Log out</a></li>
-        </ul>
-    </div>
-
-    <!-- Main Content Area -->
-    <div class="page-wrapper">
-        <div class="content container-fluid">
-            <div class="page-name mb-4">
-                <h4 class="m-0">Dashboard</h4>
-            </div>
-            <div class="dashboard-cards">
-                <div class="card">
-                    <h5 class="card-title">Total Candidates</h5>
-                    <p class="card-content">150</p>
-                </div>
-                <div class="card">
-                    <h5 class="card-title">Total Jobs</h5>
-                    <p class="card-content">50</p>
-                </div>
-                <div class="card">
-                    <h5 class="card-title">Total Recruiters</h5>
-                    <p class="card-content">10</p>
-                </div>
-                <div class="card">
-                    <h5 class="card-title">Total Interviews</h5>
-                    <p class="card-content">30</p>
-                </div>
-                <div class="card">
-                    <h5 class="card-title">Candidates Pass/Fail Status</h5>
-                    <p class="card-content">Pass: 100<br>Fail: 50</p>
-                </div>
-                <div class="card">
-                    <h5 class="card-title">Remarks</h5>
-                    <p class="card-content">Candidates with good communication skills. Need improvement in technical knowledge.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<script src="assets/js/jquery-3.6.0.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,277 @@
+/* Sidebar CSS */
+.file-upload {
+    margin-bottom: 20px;
+}
+
+.file-upload input[type="file"] {
+    display: inline-block;
+}
+
+.file-upload button {
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.file-upload button:hover {
+    background-color: #45a049;
+}
+
+.sidebar {
+    background-color: #263238;
+    color: #ffffff;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 60px;
+}
+
+.sidebar ul {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    list-style: none;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 15px 20px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #37474f;
+}
+
+/* Header CSS */
+.header {
+    background-color: #263238;
+    color: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    z-index: 999;
+}
+
+.header h4 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header label {
+    font-size: 18px;
+}
+
+/* Content Area */
+.page-wrapper {
+    margin-left: 250px;
+    padding-top: 100px;
+    background-color: #f5f5f5;
+}
+
+.page-name {
+    margin-bottom: 40px;
+}
+
+/* Assign Candidates Page */
+.search-container {
+    margin-bottom: 40px;
+}
+
+.dashboard-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-card h5 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.assigned-candidates {
+    list-style: none;
+    padding: 0;
+}
+
+.assigned-candidates li {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+/* Assign Candidates Form */
+.assign-form {
+    margin-bottom: 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, #3445e0, #434eb0);
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.assign-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+}
+
+.assign-form h5 {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+}
+
+.assign-form .checkbox-list {
+    max-height: 200px; /* Limit height to enable scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.assign-form .custom-checkbox {
+    margin-bottom: 10px; /* Add space between checkboxes */
+}
+
+.assign-form .custom-control-label {
+    color: #fff; /* Set text color */
+}
+
+.assign-form select {
+    padding: 12px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #333;
+}
+
+.assign-form select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.assign-form button {
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.assign-form button:hover {
+    background-color: #45a049;
+}
+
+
+/* CSS for recruiters' cards */
+.dashboard-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-card h5 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.assigned-candidates {
+    list-style: none;
+    padding: 0;
+}
+
+.assigned-candidates li {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.dashboard-card {
+    background: linear-gradient(45deg, #a8a1ae, #d4aeeb); /* Added gradient background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Dropdown menu CSS */
+.dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: none; /* Initially hide the dropdown */
+}
+
+.dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown ul li {
+    padding: 10px 20px;
+}
+
+.dropdown ul li a {
+    text-decoration: none;
+    color: #333333;
+    display: block;
+}
+
+.dropdown ul li a:hover {
+    background-color: #f2f2f2;
+}
+
+.profile {
+    position: relative; /* Ensure the dropdown position is relative to the profile icon */
+}
+
+.profile:hover .dropdown {
+    display: block; /* Show the dropdown when profile is hovered */
+}
+
+
+/* Other styles remain unchanged */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 40px;
+}
